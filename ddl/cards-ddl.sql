@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS [DE5.tkrv_DWH_DIM_cards];
+
+CREATE TABLE [DE5.tkrv_DWH_DIM_cards] (
+    card_num    VARCHAR  PRIMARY KEY,
+    account_num VARCHAR  CONSTRAINT FK_CARDS_TO_ACCOUNTS REFERENCES [DE5.tkrv_DWH_DIM_accounts] (account_num),
+    create_dt   DATETIME DEFAULT (CURRENT_TIMESTAMP),
+    update_dt   DATETIME DEFAULT (CURRENT_TIMESTAMP)
+);
