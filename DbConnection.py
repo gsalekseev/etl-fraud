@@ -13,6 +13,9 @@ class DbConnection(object):
     conn = sqlite3.connect('etl.db')
     cursor = conn.cursor()
 
+    def commit(self):
+        self.conn.commit()
+
     def initializeClients(self):
         self.initializeTable('clients-ddl.sql')
 
@@ -31,7 +34,8 @@ class DbConnection(object):
     def initializeTransactions(self):
         self.initializeTable('transactions-ddl.sql')
 
-    def initializeAll(self):
+    def initialize_all(self):
+        print('Инициализация БД')
         self.initializeClients()
         self.initializeAccounts()
         self.initializeCards()
@@ -46,3 +50,8 @@ class DbConnection(object):
             for s in statements:
                 if len(s) > 0:
                     self.cursor.execute(s)
+
+    def check_existence(self, query, params):
+        self.cursor.execute(query, params)
+        data = self.cursor.fetchone()
+        return data is not None
