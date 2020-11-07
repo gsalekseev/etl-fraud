@@ -1,7 +1,7 @@
 import datetime
 from decimal import *
 
-from DbConnection import DbConnection
+from application.DbConnection import DbConnection
 
 
 class Transaction:

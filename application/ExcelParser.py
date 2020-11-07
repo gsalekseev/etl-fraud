@@ -2,12 +2,12 @@ import datetime
 import xlrd
 import os
 
-from Account import Account, AccountRepository
-from Card import Card, CardRepository
-from Client import Client, ClientRepository
-from Terminal import Terminal, TerminalRepository
-from Transactions import Transaction, TransactionRepository
-from UnsafePassport import UnsafePassport, UnsafePassportRepository
+from application.Account import Account, AccountRepository
+from application.Card import Card, CardRepository
+from application.Client import Client, ClientRepository
+from application.Terminal import Terminal, TerminalRepository
+from application.Transactions import Transaction, TransactionRepository
+from application.UnsafePassport import UnsafePassport, UnsafePassportRepository
 
 
 def fill_transactions():
@@ -80,7 +80,6 @@ def handle_client(row_num, sheet):
     client.last_name = sheet.cell_value(row_num, 6)
     client.first_name = sheet.cell_value(row_num, 7)
     client.patrinymic = sheet.cell_value(row_num, 8)
-    print(sheet.cell_value(row_num, 9))
     date = int(sheet.cell_value(row_num, 9))
     client.date_of_birth = xlrd.xldate.xldate_as_datetime(date, 0)
     client.created = datetime.datetime.now()

@@ -1,6 +1,6 @@
 import datetime
 
-from DbConnection import DbConnection
+from application.DbConnection import DbConnection
 
 
 class Client:

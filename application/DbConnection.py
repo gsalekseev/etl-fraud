@@ -10,7 +10,7 @@ class DbConnection(object):
         return cls.instance
 
     ddlCatalog = './ddl'
-    conn = sqlite3.connect('etl.db')
+    conn = sqlite3.connect('./etl.db')
     cursor = conn.cursor()
 
     def commit(self):

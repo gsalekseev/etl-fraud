@@ -1,7 +1,6 @@
-from ExcelParser import fill_transactions, fill_passport_blacklist
-from PackageHelper import install_package
-from DbConnection import DbConnection
-import os
+from application.ExcelParser import fill_transactions, fill_passport_blacklist
+from application.PackageHelper import install_package
+from application.DbConnection import DbConnection
 
 #признак использования чистой БД
 clear_db = True
