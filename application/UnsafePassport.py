@@ -1,6 +1,6 @@
 import datetime
 
-from application.DbConnection import DbConnection
+from application.DefaultRepository import DefaultRepository
 
 
 class UnsafePassport:
@@ -11,7 +11,7 @@ class UnsafePassport:
 class UnsafePassportRepository:
     @staticmethod
     def passport_already_exists(passport_id):
-        return DbConnection() \
+        return DefaultRepository() \
             .check_existence('''SELECT * FROM [DE5.tkrv_DWH_FACT_passport_blacklist] AS bp WHERE bp.passport_num = ? '''
                              , [passport_id])
 
@@ -23,7 +23,7 @@ class UnsafePassportRepository:
            , entry_dt)
            VALUES(?,?); 
            '''
-        executor = DbConnection().cursor
+        executor = DefaultRepository().cursor
         executor.execute(query,
                          [entry.number, entry.date])
-        DbConnection().commit()
+        DefaultRepository().commit()

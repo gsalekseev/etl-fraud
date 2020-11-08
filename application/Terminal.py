@@ -1,6 +1,6 @@
 import datetime
 
-from application.DbConnection import DbConnection
+from application.DefaultRepository import DefaultRepository
 
 
 class Terminal:
@@ -15,7 +15,7 @@ class Terminal:
 class TerminalRepository:
     @staticmethod
     def terminal_already_exists(terminal_id):
-        return DbConnection() \
+        return DefaultRepository() \
             .check_existence('''SELECT * FROM [DE5.tkrv_DWH_DIM_terminals] AS tl WHERE tl.terminal_id = ? '''
                              , [terminal_id])
 
@@ -31,7 +31,7 @@ class TerminalRepository:
         , update_dt)
         VALUES(?,?,?,?,?,?); 
         '''
-        executor = DbConnection().cursor
+        executor = DefaultRepository().cursor
         executor.execute(query,
                          [entry.terminal_id, entry.type, entry.city, entry.address, entry.created, entry.updated])
-        DbConnection().commit()
+        DefaultRepository().commit()

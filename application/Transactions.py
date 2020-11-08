@@ -1,7 +1,7 @@
 import datetime
 from decimal import *
 
-from application.DbConnection import DbConnection
+from application.DefaultRepository import DefaultRepository
 
 
 class Transaction:
@@ -17,7 +17,7 @@ class Transaction:
 class TransactionRepository:
     @staticmethod
     def transaction_already_exists(transaction_id):
-        return DbConnection() \
+        return DefaultRepository() \
             .check_existence('''SELECT * FROM [DE5.tkrv_DWH_FACT_transactions] AS tr WHERE tr.trans_id = ? '''
                              , [transaction_id])
 
@@ -34,7 +34,7 @@ class TransactionRepository:
         , terminal)
         VALUES(?,?,?,?,?,?,?); 
         '''
-        executor = DbConnection().cursor
+        executor = DefaultRepository().cursor
         executor.execute(query,
                          [entry.id, entry.date, entry.card_number, entry.operation_type, entry.amount, entry.operation_result, entry.terminal_id])
-        DbConnection().commit()
+        DefaultRepository().commit()

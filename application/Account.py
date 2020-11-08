@@ -1,6 +1,6 @@
 import datetime
 
-from application.DbConnection import DbConnection
+from application.DefaultRepository import DefaultRepository
 
 
 class Account:
@@ -14,7 +14,7 @@ class Account:
 class AccountRepository:
     @staticmethod
     def account_already_exists(account_number):
-        return DbConnection() \
+        return DefaultRepository() \
             .check_existence('''SELECT * FROM [DE5.tkrv_DWH_DIM_accounts] AS acc WHERE acc.account_num = ? '''
                              , [account_number])
 
@@ -24,7 +24,7 @@ class AccountRepository:
         INSERT INTO [DE5.tkrv_DWH_DIM_accounts] (account_num, valid_to, client, create_dt, update_dt)
         VALUES(?,?,?,?,?); 
         '''
-        connection = DbConnection()
+        connection = DefaultRepository()
         executor = connection.cursor
         executor.execute(query, [account.account_number, account.valid_to, account.client_id, account.created,
                                  account.updated])

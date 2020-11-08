@@ -1,6 +1,6 @@
 import datetime
 
-from application.DbConnection import DbConnection
+from application.DefaultRepository import DefaultRepository
 
 
 class Card:
@@ -13,7 +13,7 @@ class Card:
 class CardRepository:
     @staticmethod
     def card_already_exists(card_number):
-        return DbConnection() \
+        return DefaultRepository() \
             .check_existence('''SELECT * FROM [DE5.tkrv_DWH_DIM_cards] AS crd WHERE crd.card_num = ? '''
                              , [card_number])
 
@@ -23,6 +23,6 @@ class CardRepository:
         INSERT INTO [DE5.tkrv_DWH_DIM_cards] (card_num, account_num, create_dt, update_dt)
         VALUES(?,?,?,?); 
         '''
-        executor = DbConnection().cursor
+        executor = DefaultRepository().cursor
         executor.execute(query, [card.card_number, card.account_number, card.created, card.updated])
-        DbConnection().commit()
+        DefaultRepository().commit()

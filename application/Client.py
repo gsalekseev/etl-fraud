@@ -1,6 +1,6 @@
 import datetime
 
-from application.DbConnection import DbConnection
+from application.DefaultRepository import DefaultRepository
 
 
 class Client:
@@ -19,7 +19,7 @@ class Client:
 class ClientRepository:
     @staticmethod
     def client_already_exists(client_id):
-        return DbConnection() \
+        return DefaultRepository() \
             .check_existence('''SELECT * FROM [DE5.tkrv_DWH_DIM_clients] AS cl WHERE cl.client_id = ? '''
                              , [client_id])
 
@@ -39,8 +39,8 @@ class ClientRepository:
         , update_dt)
         VALUES(?,?,?,?,?,?,?,?,?,?); 
         '''
-        executor = DbConnection().cursor
+        executor = DefaultRepository().cursor
         executor.execute(query,
                          [entry.client_id, entry.first_name, entry.last_name, entry.patrinymic, entry.date_of_birth,
                           entry.passport_num, entry.passport_valid_to, entry.phone, entry.created, entry.updated])
-        DbConnection().commit()
+        DefaultRepository().commit()
