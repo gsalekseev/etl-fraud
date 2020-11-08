@@ -26,7 +26,7 @@ def fill_transactions():
 
 def fill_passport_blacklist():
     print('Заполнение БД паспортами из черного списка НАЧАТО')
-    blacklist_files = list(filter(lambda f: 'passports_blacklist' in f and 'backup' not in f, os.listdir(".")))
+    blacklist_files = list(filter(lambda f: 'passports_blacklist' in f and 'backup' not in f and 'translit' not in f, os.listdir(".")))
     count = len(blacklist_files)
     print('Найдено файлов для загрузки: ' + str(count))
     for f in blacklist_files:
